@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Três Aplicações de jQuery - Vitória Lorramy</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <title>Três Aplicações jQuery - Vitória Lorramy </title>
+    <style>
+        .app {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .buttons button {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+        }
+    </style>
+    
+    </head>
+
+    <body>
+        <!-- Aplicação 1: Calculadora Simples -->
+        <div class="app">
+            <h2>Calculadora Simples</h2>
+            <input type="text" id="calc-input" placeholder="0">
+            <div class="buttons">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>+</button>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>-</button>
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                <button>*</button>
+                <button>0</button>
+                <button>=</button>
+                <button>/</button>
+            </div>
+        </div>
+
+        <!-- Aplicação 2: Relógio Digital -->
+        <div class="app">
+            <h2>Relógio Digital</h2>
+            <div id="clock">00:00:00</div>
+        </div>
+
+        <!-- Aplicação 3: Lista de Compras -->
+        <div class="app">
+            <h2>Lista de Compras</h2>
+            <input type="text" id="new-item" placeholder="Adicionar novo item">
+            <ul id="shopping-list">
+                <li>Pão</li>
+                <li>Leite</li>
+                <li>Maçãs</li>
+            </ul>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                // Aplicação 1: Calculadora Simples
+                let currentInput = "";
+                $('#calc-input').val(currentInput);
+
+                $('.buttons button').click(function () {
+                    const buttonValue = $(this).text();
+                    if (buttonValue === "=") {
+                        try {
+                            currentInput = eval(currentInput);
+                        } catch (error) {
+                            currentInput = "Erro";
+                        }
+                    } else {
+                        currentInput += buttonValue;
+                    }
+                    $('#calc-input').val(currentInput);
+                });
+
+                // Aplicação 2: Relógio Digital
+                function updateClock() {
+                    const now = new Date();
+                    const timeString = now.toLocaleTimeString();
+                    $('#clock').text(timeString);
+                }
+
+                setInterval(updateClock, 1000);
+                updateClock();
+
+                // Aplicação 3: Lista de Compras
+                $('#new-item').keypress(function (e) {
+                    if (e.which === 13) {
+                        const itemText = $(this).val();
+                        if (itemText.trim() !== "") {
+                            $('#shopping-list').append('<li>' + itemText + '</li>');
+                            $(this).val('');
+                        }
+                    }
+                });
+            });
+        </script>
+    </body>
+
+</html>
