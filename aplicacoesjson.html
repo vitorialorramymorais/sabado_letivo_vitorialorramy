@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Três Aplicações usando Json - Vitória Lorramy</title>
+</head>
+<body>
+    <!-- Aplicação 1: Listagem de Produtos -->
+    <div>
+        <h2>Aplicação 1: Listagem de Produtos</h2>
+        <ul id="product-list"></ul>
+    </div>
+
+    <!-- Aplicação 2: Formulário de Cadastro com JSON -->
+    <div>
+        <h2>Aplicação 2: Formulário de Cadastro com JSON</h2>
+        <form id="json-form">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <input type="submit" value="Cadastrar">
+        </form>
+
+        <h3>Dados JSON do Cadastro</h3>
+        <pre id="json-output"></pre>
+    </div>
+
+    <!-- Aplicação 3: Exibição de Dados de Livro -->
+    <div>
+        <h2>Aplicação 3: Exibição de Dados de Livro</h2>
+        <div id="book-details"></div>
+    </div>
+
+    <script>
+        // Aplicação 1: Listagem de Produtos
+        const productList = document.getElementById("product-list");
+        const products = [
+            { "nome": "Produto A", "preco": 19.99 },
+            { "nome": "Produto B", "preco": 29.99 },
+            { "nome": "Produto C", "preco": 39.99 }
+        ];
+
+        products.forEach(product => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `${product.nome} - R$ ${product.preco.toFixed(2)}`;
+            productList.appendChild(listItem);
+        });
+
+        // Aplicação 2: Formulário de Cadastro com JSON
+        const jsonForm = document.getElementById("json-form");
+        const jsonOutput = document.getElementById("json-output");
+
+        jsonForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const formData = new FormData(jsonForm);
+            const jsonObject = {};
+
+            formData.forEach((value, key) => {
+                jsonObject[key] = value;
+            });
+
+            jsonOutput.textContent = JSON.stringify(jsonObject, null, 2);
+        });
+
+        // Aplicação 3: Exibição de Dados de Livro
+        const bookDetails = document.getElementById("book-details");
+        const bookData = {
+            "titulo": "O Grande Livro de HTML",
+            "autor": "John Doe",
+            "ano": 2023,
+            "editora": "Editora XYZ"
+        };
+
+        bookDetails.innerHTML = `
+            <p><strong>Título:</strong> ${bookData.titulo}</p>
+            <p><strong>Autor:</strong> ${bookData.autor}</p>
+            <p><strong>Ano:</strong> ${bookData.ano}</p>
+            <p><strong>Editora:</strong> ${bookData.editora}</p>
+        `;
+    </script>
+</body>
+</html>
